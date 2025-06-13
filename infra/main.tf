@@ -59,7 +59,7 @@ resource "aws_security_group" "ghost_sg" {
     from_port = 22
     to_port   = 22
     protocol  = "tcp"
-    # cidr_blocks = [var.allowed_ssh_ip]
+    cidr_blocks = [var.allowed_ssh_ip]
   }
 
   egress {
@@ -74,14 +74,15 @@ resource "random_id" "suffix" {
   byte_length = 4
 }
 
-resource "aws_key_pair" "ghost_key" {
-  key_name   = "${var.ssh_key_name}-${random_id.suffix.hex}"
-  public_key = tls_private_key.ghost_key.public_key_openssh
-}
 
 resource "tls_private_key" "ghost_key" {
   algorithm = "RSA"
   rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "ghost_key" {
+  key_name   = "${var.ssh_key_name}-${random_id.suffix.hex}"
+  public_key = tls_private_key.ghost_key.public_key_openssh
 }
 
 
