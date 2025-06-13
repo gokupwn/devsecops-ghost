@@ -77,4 +77,4 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: "Semgrep found ${{ steps.semgrep.outcome }} issues. Check GitHub for details."
-          SLACK_FILE_UPLOAD: results.sarif
+          # SLACK_FILE_UPLOAD: results.sarif
